@@ -91,7 +91,7 @@ const OtpVerificationModal = ({ isOpen, onClose, email = "temp@gmail.com" }: any
         </div>
 
         <div className="text-center mb-6">
-          <p className="text-gray-600 mb-2">Didn't get the OTP?</p>
+          <p className="text-gray-600 mb-2">Didn&apos;t get the OTP?</p>
           <p className="text-sm text-gray-500">
             Resend OTP on email in <span className="text-gray-800">11s</span>
           </p>

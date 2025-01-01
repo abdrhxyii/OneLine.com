@@ -27,7 +27,7 @@ const AuthenticationModal = ({ isOpen, onClose }: any) => {
         </div>
 
         <h2 className="text-2xl font-medium text-center mb-6">
-          Hala! Let's get started
+          Hala! Let&apos;s get started
         </h2>
 
         <div className="flex gap-2 mb-6">

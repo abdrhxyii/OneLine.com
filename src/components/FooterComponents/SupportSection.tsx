@@ -9,7 +9,7 @@ const SupportSection = () => {
           {/* Left section */}
           <div className="flex flex-col">
             <h2 className="text-xl md:text-2xl font-semibold text-gray-800">
-              We're Always Here To Help
+              We&apos;re Always Here To Help
             </h2>
             <p className="mt-1 text-sm md:text-base text-gray-600">
               Reach out to us through any of these support channels
