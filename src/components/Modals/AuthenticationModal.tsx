@@ -1,8 +1,40 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import Image from 'next/image';
+import { supabase } from '@/utils/supabase';
 
 const AuthenticationModal = ({ isOpen, onClose }: any) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSignUp = async () => {
+    setError('');
+    setLoading(true);
+
+    try {
+      const { data, error } = await supabase.auth.signInWithOtp({
+        email,
+      });
+
+      if (error) {
+        console.log("error", error)
+      } else {
+        console.log(data, "data")
+        alert('Check your email for the confirmation link!');
+        setEmail('');
+        setPassword('');
+      }
+    } catch (err: any) {
+      console.log(err, "err___")
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -30,23 +62,31 @@ const AuthenticationModal = ({ isOpen, onClose }: any) => {
           Hala! Let&apos;s get started
         </h2>
 
-        <div className="flex gap-2 mb-6">
-          <button className="flex-1 py-2 px-4 border border-gray-300 rounded-md hover:bg-gray-50">
-            Log in
-          </button>
-          <button className="flex-1 py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800">
-            Sign up
-          </button>
-        </div>
+        {error && (
+          <p className="text-sm text-red-500 text-center mb-4">{error}</p>
+        )}
 
         <input
-          type="text"
-          placeholder="Please enter email or mobile number"
+          type="email"
+          placeholder="Enter email address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md mb-4"
+        />
+        <input
+          type="password"
+          placeholder="Enter password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           className="w-full px-4 py-2 border border-gray-300 rounded-md mb-4"
         />
 
-        <button className="w-full py-3 bg-gray-100 text-gray-800 rounded-md hover:bg-gray-200 mb-4">
-          CONTINUE
+        <button
+          onClick={handleSignUp}
+          disabled={loading}
+          className="w-full py-3 bg-black text-white rounded-md hover:bg-gray-800 mb-4"
+        >
+          {loading ? 'Loading...' : 'Sign Up'}
         </button>
 
         <p className="text-xs text-gray-500 text-center">
